@@ -2,7 +2,17 @@
 
 An OpenAI-compatible gateway that sits between your apps and LLM providers and enforces **per-tenant budgets**, **routes each prompt to the cheapest model that can handle it**, **caches answers safely**, and **survives slow or failing providers** with hedged requests and circuit breakers.
 
+🌐 **Live Console:** [https://llm-gateway-five-tau.vercel.app/](https://llm-gateway-five-tau.vercel.app/)
+
 Stack: Node.js + Express, MongoDB (Mongoose), Redis (Lua), React dashboard. LangChain provider adapters, a LangGraph decision pipeline, and an MCP server (+ a LangGraph FinOps agent that uses it).
+
+## Screenshots
+
+### Usage & Savings Analytics
+![Usage Dashboard](docs/usage-dashboard.png)
+
+### Tenant & Budget Management
+![Tenants Dashboard](docs/tenants-dashboard.png)
 
 ## Architecture
 
@@ -24,13 +34,13 @@ client ─► Express ─► auth (HMAC key) ─► tenant rate limit (Redis tok
 
 | Path | Role |
 |---|---|
-| `server/src/graph/plan.js` | LangGraph state machine (guard → cache → classify → budget) |
-| `server/src/router/hedge.js` | Hedged requests, failover, idle timeout (dependency-free, unit tested) |
-| `server/src/router/classifier.js`, `knn.js` | Explainable complexity scoring + embedding kNN |
+| `server/src/core/plan.js` | LangGraph state machine (guard → cache → classify → budget) |
+| `server/src/core/hedge.js` | Hedged requests, failover, idle timeout (dependency-free, unit tested) |
+| `server/src/core/classifier.js`, `knn.js` | Explainable complexity scoring + embedding kNN |
 | `server/src/lib/redis.js` | Lua: token bucket, atomic budget reserve/settle |
-| `server/src/cache/semanticCache.js` | Per-tenant AES-256-GCM encrypted exact + semantic cache |
-| `server/src/mcp/server.js` | MCP tools (read-only by default) |
-| `server/src/agent/finops.js` | LangGraph ReAct agent over the MCP tools |
+| `server/src/core/semanticCache.js` | Per-tenant AES-256-GCM encrypted exact + semantic cache |
+| `server/src/services/mcpServer.js` | MCP tools (read-only by default) |
+| `server/src/services/finops.js` | LangGraph ReAct agent over the MCP tools |
 | `web/` | React console: tenants, usage, streaming playground |
 
 ## Zero-cost setup (everything free)
