@@ -27,9 +27,9 @@ const schema = z
     // Zero-cost guard: while true, paid providers (Anthropic/OpenAI) are never used, even if a key is set.
     FREE_ONLY: bool.default('true'),
     GROQ_API_KEY: z.string().optional(), // free plan only: do not add billing to the Groq account
-    GROQ_MODEL_CHEAP: z.string().default('llama-3.1-8b-instant'),
-    GROQ_MODEL_MID: z.string().default('llama-3.3-70b-versatile'),
-    GROQ_MODEL_PREMIUM: z.string().default('llama-3.3-70b-versatile'),
+    GROQ_MODEL_CHEAP: z.string().default('openai/gpt-oss-20b'),
+    GROQ_MODEL_MID: z.string().default('qwen/qwen3.8-27b'),
+    GROQ_MODEL_PREMIUM: z.string().default('openai/gpt-oss-120b'),
     ENABLE_OLLAMA: bool.default('false'),
     OLLAMA_BASE_URL: z.string().url().default('http://localhost:11434'),
     OLLAMA_MODEL_CHEAP: z.string().default('llama3.2:3b'),

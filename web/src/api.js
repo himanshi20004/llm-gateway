@@ -1,10 +1,11 @@
 // The admin key lives only in this module's memory: not localStorage, not a cookie.
 // A page reload logs you out, which is the intended trade-off for a high-privilege key.
+const BASE = (import.meta.env.VITE_API_URL || '').replace(/\/$/, '');
 let adminKey = '';
 export const setAdminKey = (k) => { adminKey = k; };
 
 async function call(path, opts = {}) {
-  const r = await fetch(path, { ...opts, headers: { 'content-type': 'application/json', 'x-admin-key': adminKey } });
+  const r = await fetch(`${BASE}${path}`, { ...opts, headers: { 'content-type': 'application/json', 'x-admin-key': adminKey } });
   if (r.status === 204) return null;
   const j = await r.json().catch(() => ({}));
   if (!r.ok) throw new Error(j.error?.message || r.statusText);
@@ -21,7 +22,7 @@ export const api = {
 
 /** Streams a chat completion and reports routing metadata from response headers. */
 export async function streamChat({ apiKey, model, prompt, onMeta, onToken, signal }) {
-  const r = await fetch('/v1/chat/completions', {
+  const r = await fetch(`${BASE}/v1/chat/completions`, {
     method: 'POST', signal,
     headers: { 'content-type': 'application/json', authorization: `Bearer ${apiKey}` },
     body: JSON.stringify({ model, stream: true, messages: [{ role: 'user', content: prompt }] }),

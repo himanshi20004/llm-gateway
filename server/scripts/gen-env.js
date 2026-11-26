@@ -31,9 +31,9 @@ CACHE_ENCRYPTION_KEY=${cacheEncryptionKey}
 
 # Free LLM provider: get a key at https://console.groq.com/keys
 GROQ_API_KEY=
-GROQ_MODEL_CHEAP=llama-3.1-8b-instant
-GROQ_MODEL_MID=llama-3.3-70b-versatile
-GROQ_MODEL_PREMIUM=llama-3.3-70b-versatile
+GROQ_MODEL_CHEAP=openai/gpt-oss-20b
+GROQ_MODEL_MID=qwen/qwen3.8-27b
+GROQ_MODEL_PREMIUM=openai/gpt-oss-120b
 
 # Optional local Ollama
 ENABLE_OLLAMA=false

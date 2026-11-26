@@ -1,6 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/v1/:path*", "destination": "https://REPLACE-WITH-YOUR-RAILWAY-URL.up.railway.app/v1/:path*" },
-    { "source": "/admin/:path*", "destination": "https://REPLACE-WITH-YOUR-RAILWAY-URL.up.railway.app/admin/:path*" }
-  ]
-}
