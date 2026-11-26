@@ -1,0 +1,37 @@
+{
+  "name": "llm-gateway-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "mcp": "node src/services/mcpServer.js",
+    "agent": "node src/services/finops.js",
+    "setup": "node scripts/gen-env.js",
+    "seed": "node scripts/seed.js",
+    "bench": "node scripts/bench.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@langchain/anthropic": "^1.0.0",
+    "@langchain/core": "^1.0.0",
+    "@langchain/langgraph": "^1.0.0",
+    "@langchain/mcp-adapters": "^1.0.0",
+    "@langchain/openai": "^1.0.0",
+    "@modelcontextprotocol/sdk": "^1.20.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "ioredis": "^5.4.1",
+    "mongoose": "^8.9.0",
+    "pino": "^9.5.0",
+    "pino-http": "^10.3.0",
+    "zod": "^3.25.0"
+  }
+}
